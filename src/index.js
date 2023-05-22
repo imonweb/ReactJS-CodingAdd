@@ -3,41 +3,79 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import book1 from "./images/book-1.jpg";
 import book2 from "./images/book-2.jpg";
+
+const books = [
+  {
+    author: 'Jordan Moore',
+    title: 'Interesting Facts For Curious Minds',
+    img: './images/book-1.jpg',
+    id: 1
+  },
+  {
+    author: 'James Clear',
+    title: 'Atomic Habits',
+    img: './images/book-2.jpg',
+    id: 2
+  }
+]
  
-const firstBook = {
-  author: 'Jordan Moore',
-  title: 'Interesting Facts For Curious Minds',
-  img: './images/book-1.jpg'
-}
-
-const secondBook = {
-  author: 'James Clear',
-  title: 'Atomic Habits',
-  img: './images/book-2.jpg'
-}
-
 const BookList = () => {
   return (
     <section className='booklist'>
-      <Book author={firstBook.author} title={firstBook.title} img={firstBook.book1} >
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <button>click me</button>
-      </Book>
-      <Book author={secondBook.author} title={secondBook.title} img={secondBook.book2} />
+      <EventExamples />
+      {books.map((book)=> {
+        return (
+          <Book {...book} key={book.id}/>
+        )
+      })}
     </section>
   )
 }
 
+const EventExamples = () => {
+  const handleFormInput = (e) => {
+    console.log(e.target)
+    console.log(e.target.name)
+    console.log(e.target.name.value)
+    console.log('handle form input');
+  }
+  const handleButtonClick = () => {
+    alert('handle button click')
+  }
+  const handleFormSubmission = (e) => {
+    e.preventDefault();
+    console.log('form submitted')
+  }
+
+  return <section>
+    <form onSubmit={handleFormSubmission}>
+      <h2>Typical Form</h2>
+      <input type='text' name='product' onChange={(e) => console.log(e.target.value)} style={{margin: '1rem 0'}} /> 
+    <button type="submit">submit</button>
+    <button onClick={() => {
+      console.log('click me')
+    }}>click me</button>
+    </form>
+    <div>
+
+    </div>
+  </section>
+}
+
 const Book = (props) => {
   // const {img, title, author} = props
-  const {img, title, author, children} = props;
+  const {img, title, author} = props;
   console.log(props);
+  const displayTitle = () => {
+    console.log(title);
+  }
   return (
     <article className='book'>
-      <img src={book1} alt={title} />
-       <h2>{title}</h2>
+      <img src={img} alt={title} />
+      <h2>{title}</h2>
+      <button onClick={displayTitle}>display title</button>
       <h4>{author}</h4>
-      {children}
+ 
     </article>
   )
 }

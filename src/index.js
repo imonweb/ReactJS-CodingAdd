@@ -10,15 +10,19 @@ const BookList = () => {
     console.log(book);
   }
   return (
+
+    <>
+    <h1>Amazon Best Sellers</h1>
     <section className='booklist'>
       {/* <EventExamples /> */}
       {books.map((book, index)=> {
         return (
           <Book {...book} key={book.id} getBook={getBook} number={index} />
-        )
-      })}
+          )
+        })}
     
     </section>
+    </>
   )
 }
 
